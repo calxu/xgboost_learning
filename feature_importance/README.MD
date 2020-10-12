@@ -2,9 +2,16 @@
 
 从模型层面来讲，特征的重要性表明每个特征在模型中的价值；从业务层面来讲，对于重要的特征，是重点迭代关注的对象（工业界经常底层其它特征因为各种原因都不更新了，但重要性排在前面的特征一定要保证正常迭代更新）。
 
-特征重要性的衡量有不同维度的视角，不同维度的视角得出的特征重要性会有不同的结果。XGBoost主要有3个衡量特征重要性的指标 weight 、gain 和 cover，**其中最常用得是 weight 和 gain** 。**weight 表示在模型中一个特征被选作分裂特征的次数；gain 表示特征在模型中被使用的平均增益（增益通过损失函数的变化度量，即 $Gain = \frac{1}{2} [ \frac{G_L^2}{H_L+\lambda} + \frac{G_R^2}{H_R + \lambda} - \frac{(G_L + G_R)^2}{H_L + H_R + \lambda} ] - \gamma$ ）注意这里是平均增益，即该特征增益总和除以该特征出现次数；** cover 并不常用，它表示特征在模型中被使用的平均覆盖率（通过节点的二阶梯度和来计算的），当损失函数为平方损失（即默认参数），那么该参数的含义就对应指定结点训练样本的数目，官方对cover的描述稍微有点抽象，可以看下 [博客](https://blog.csdn.net/sujinhehehe/article/details/84201415#commentBox) 举的一个例子（例子中是平方损失即为分裂训练样本的个数）。
+特征重要性的衡量有不同维度的视角，不同维度的视角得出的特征重要性会有不同的结果。
+XGBoost主要有3个衡量特征重要性的指标 weight 、gain 和 cover，**其中最常用得是 weight 和 gain** 。
+**weight 表示在模型中一个特征被选作分裂特征的次数；gain 表示特征在模型中被使用的平均增益（增益通过损失函数的变化度量，即 
+$Gain = \frac{1}{2} [ \frac{G_L^2}{H_L+\lambda} + \frac{G_R^2}{H_R + \lambda} - \frac{(G_L + G_R)^2}{H_L + H_R + \lambda} ] - \gamma$ ）
+![1](http://latex.codecogs.com/svg.latex?\int_a^bf(x)\ dx)
 
-后续XGBoost增加了 total_gain 和 total_cover，其中 total_gain = gain * weight​ 、total\_cover = cover * weight 。**total_gain 是非常常用的评估特征重要性的指标，因为 total_gain 是特征出现次数和特征的增益的综合考虑。**
+注意这里是平均增益，即该特征增益总和除以该特征出现次数；** cover 并不常用，它表示特征在模型中被使用的平均覆盖率（通过节点的二阶梯度和来计算的），当损失函数为平方损失（即默认参数），
+那么该参数的含义就对应指定结点训练样本的数目，官方对cover的描述稍微有点抽象，可以看下 [博客](https://blog.csdn.net/sujinhehehe/article/details/84201415#commentBox) 举的一个例子（例子中是平方损失即为分裂训练样本的个数）。
+
+后续XGBoost增加了 total_gain 和 total_cover，其中 total_gain = gain * weight 、total\_cover = cover * weight 。**total_gain 是非常常用的评估特征重要性的指标，因为 total_gain 是特征出现次数和特征的增益的综合考虑。**
 
 关于XGBoost的 weight、gain、cover、total_gain 和 total_cover 的源码讲解实现可以参考 [链接](https://zhuanlan.zhihu.com/p/64759172) 。
 
