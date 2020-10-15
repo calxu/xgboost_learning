@@ -16,7 +16,10 @@ bst.predict(xgb_test, pred_contribs = True, approx_contribs = True)
 
 
 
-关于 SHAP 和 Sabbas 方法的理论可参考 [知乎文章](https://zhuanlan.zhihu.com/p/186204351) 。**在 SHAP 和 Sabbas 方法之间，我们更多地是应用 SHAP 方法进行个性化分析。但在工业界一般很少用 SHAP 单独分析这样做，更多的是圈一批样本，看这批样本的整体情况，样本整体情况一般还是依据特征重要性，其中更多的是看 total_gain 指标。** 
+关于 SHAP 和 Sabbas 方法的理论可参考 [知乎文章](https://zhuanlan.zhihu.com/p/186204351) 。
+
+**在 SHAP 和 Sabbas 方法之间，我们更多地是应用 SHAP 方法进行单个样本的分析。
+但在工业界一般很少用 SHAP 单独分析这样做，更多的是圈一批样本，看这批样本的整体情况，样本整体情况一般还是依据特征重要性，其中更多的是看 total_gain 指标。** 
 
 
 
