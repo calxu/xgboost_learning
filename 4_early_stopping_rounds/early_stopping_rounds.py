@@ -66,7 +66,7 @@ watchlist = [(xgb_train, 'train')]
 # In[8]:
 
 
-# 因为在第8轮后4次中，auc一直没增加，所以停止迭代
+# 因为在第9轮(即编号为8)后4次中，auc一直没增加，所以停止迭代
 # 如果 watchlist 存在多个元组，则取最后一个元组的值
 bst = xgb.train(params, xgb_train, num_boost_round = 100, evals = watchlist, early_stopping_rounds = 4)
 
@@ -74,7 +74,7 @@ bst = xgb.train(params, xgb_train, num_boost_round = 100, evals = watchlist, ear
 # In[9]:
 
 
-# 使用前8棵树进行预测（前9棵数可以通过 bst.best_ntree_limit 来指定）
+# 使用前9棵树进行预测（前9棵数可以通过 bst.best_ntree_limit 来指定）
 Y_test_pred = bst.predict(xgb_test, ntree_limit = 9)
 print(roc_auc_score(Y_test, Y_test_pred))
 
@@ -88,6 +88,6 @@ bst.best_score, bst.best_iteration, bst.best_ntree_limit
 # In[11]:
 
 
-# 共12棵树（编号0~11），bst是12棵树的模型，所以 bst.predict 方法时要使用 ntree_limit 来指定前8棵树
-xgb.to_graphviz(bst, fmap = '', num_trees = 11)
+# 共13棵树（编号0~12），bst是12棵树的模型，所以 bst.predict 方法时要使用 ntree_limit 来指定前9棵树
+xgb.to_graphviz(bst, fmap = '', num_trees = 12)
 
