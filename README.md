@@ -11,6 +11,8 @@ XGBoost目前在工业界非常常用，所以有必要把XGB的原理和应用�
 
 2. 2_trees_visualization: 单棵树可视化分析
 
-3. 3_shape_analysis: 单个样本的归因分析（SHAP 和 Saabas）
+3. 3_shap_analysis: 单个样本的归因分析（SHAP 和 Saabas）
+
+4. 4_early_stopping_rounds: 提前停止迭代 eary_stopping_rounds 参数
 
 
