@@ -1,4 +1,4 @@
-# 预过前n棵树进行预测
+# 通过前n棵树进行预测
 
 默认情况下，XGBoost会使用模型中所有决策树进行预测。在某些场景下，可以通过指定参数 ntree_limit 只使用前 n 棵树进行预测，比如：early_stopping_rounds 提前停止迭代发生时，则可以用 ntree_limit 取最优的前 n 棵树进行预测。
 
