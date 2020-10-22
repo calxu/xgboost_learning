@@ -15,6 +15,8 @@ XGBoost目前在工业界非常常用，所以有必要把XGB的原理和应用�
 
 4. 4_early_stopping_rounds: 提前停止迭代 eary_stopping_rounds 参数
 
-5. 5_predict: predict 方法函数（通过前n棵树进行预测、预测叶子结点索引）
+5. 5_predict_1: predict 方法函数（通过前n棵树进行预测、预测叶子结点索引）
+
+6. 6_predict_2: predict 方法函数（predict 未经 sigmoid 转化的预测值）
 
 
