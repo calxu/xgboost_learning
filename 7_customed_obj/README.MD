@@ -31,24 +31,19 @@ xgb.train(params, xgb_train, num_round, watchlist, obj = logregobj, feval = eval
 
 
 
-**个人理解：XGBoost 对自定义目标函数接口非常不友好，objective中必须指定，若不指定则默认为 "reg:linear"（即损失函数为均方误差  
-<img src="./images/reg_linear.svg" alt="avatar" style="zoom:20%;" />  ），train方法中obj参数仅支持定义损失函数的一、二阶偏导，无法定义损失函数本身，损失函数的定义只能修改XGBoost源码。** 
+**个人理解：XGBoost 对自定义目标函数接口非常不友好，objective中必须指定，若不指定则默认为 "reg:linear"（即损失函数为均方误差 ![1](./images/reg_linear.svg)  ），train方法中obj参数仅支持定义损失函数的一、二阶偏导，无法定义损失函数本身，损失函数的定义只能修改XGBoost源码。** 
 
 其中objective目标函数中的 "reg:logistic" 和 "binary:logistic" 区别主要在于前者默认评价指标为 error，后者默认评价指标为 rmse（具体实验验证可看下这篇 [CSDN文章](https://blog.csdn.net/phyllisyuell/article/details/81005509) ）。在XGBoost中通常在对对数似然取负数（可参考源码：./doc/tutorials/model.rst 的50行；./R-package/tests/testthat/test_callbacks.R 的252行），形式如下：
 
-
-<img src="./images/obj.svg" alt="avatar" style="zoom:110%;" align="left" />
-
- 
-
-其中 <img src="./images/pred.svg" alt="avatar" style="zoom:110%;" /> 为上一轮迭代模型的预测值（即 pred，也是sigmoid函数）。
+![2](./images/obj.svg)
 
 
-对上式求一阶导为：<img src="./images/grad.svg" alt="avatar" style="zoom:110%;" />
 
+其中 ![3](./images/pred.svg) 为上一轮迭代模型的预测值（即 pred，也是sigmoid函数）。
 
-二阶导为：<img src="./images/hess.svg" alt="avatar" style="zoom:110%;" />
+对上式求一阶导为：![3](./images/grad.svg)
 
+二阶导为：![4](./images/hess.svg)
 
 其中 y 为样本的label，<img src="./images/y.svg" alt="avatar" style="zoom:110%;" /> 为上一次模型的预测值（未进行 sigmoid 转换）。根据上述公式，loggreobj 函数实现了二分类对数似然函数一阶梯度和二阶梯度的计算，并作为函数返回值返回，**这里只返回目标函数的一阶和二阶导数，目标函数本身无法定义，只有通过修改源码，所以我感觉这是XGBoost的缺陷**。evalerror 函数实现了自定义评估函数。这里注意因为模型产出的预测值 preds （即<img src="./images/y.svg" alt="avatar" style="zoom:110%;" />）为原始值，所以在自定义目标函数内部对 preds （即<img src="./images/y.svg" alt="avatar" style="zoom:110%;" />）进行了 sigmoid 转换，转换之后再计算一阶、二阶梯度。
 
