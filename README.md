@@ -20,3 +20,5 @@ XGBoost目前在工业界非常常用，所以有必要把XGB的原理和应用�
 6. 6_predict_2: predict 方法函数（predict 未经 sigmoid 转化的预测值）
 
 7. 7_customed_obj: XGBoost自定义目标函数和评估函数
+
+8. 8_sklearn: XGBoost的sklearn接口使用
