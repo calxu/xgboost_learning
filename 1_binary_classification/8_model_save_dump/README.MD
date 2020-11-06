@@ -8,7 +8,7 @@
 
 LibSVM是机器学习中经常采用的一种数据格式。
 
-格式如下：<label> <index1>:<value1> <index2>:<value2> ...
+格式如下：\<label\> \<index1\>:\<value1\> \<index2\>:\<value2\> ...
 
 label为训练数据集的目标值；index为特征索引（**从1开始**）；value是该特征的取值，如果某一特征的值缺省，则该特征可以空着不填。
 
@@ -20,7 +20,7 @@ label为训练数据集的目标值；index为特征索引（**从1开始**）�
 
 映射文件是完成索引和特征名称的映射，代码里的文件是 featmap.txt 文件。
 
-格式如下：<featureid> <featurename> <q or i or int>\n
+格式如下：\<featureid\> \<featurename\> \<q or i or int\>\n
 
 其中：featureid为特征索引（**从0开始**）； featurename为特征名称； 
 
